@@ -33,11 +33,14 @@ SCHEME="${PROJECT%.xcodeproj}"
 
 command -v xcodegen >/dev/null 2>&1 && xcodegen generate --quiet
 
+VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$SCHEME/Info.plist")
+
 exec asc publish testflight \
   --app "$APP_ID" \
   --project "$PROJECT" \
   --scheme "$SCHEME" \
   --configuration Release \
+  --version "$VERSION" \
   --export-options scripts/ExportOptions.plist \
   --archive-path "build/$SCHEME.xcarchive" \
   --ipa-path "build/$SCHEME.ipa" \
