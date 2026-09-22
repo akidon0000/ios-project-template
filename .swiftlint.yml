@@ -118,9 +118,9 @@ opt_in_rules:
   - xct_specific_matcher
   - yoda_condition
 
-# 対象のファイル・フォルダ
-included:
-  - Tokumemo
+# 対象のファイル・フォルダ: 指定しない（excluded 以外の全体を対象にする）。
+# XprojGen は ProductName 名のディレクトリにソースを置くため、アプリ名をここに書くとテンプレートのままでは
+# ハードコードされてしまう。絞り込みが要る場合は各リポジトリの .swiftlint.yml で追記する。
 
 # 対象外のファイル・フォルダ
 excluded:

@@ -37,6 +37,19 @@ mint run akidon0000/XprojGen xprojgen MyAwesomeApp --flat
 - **プルリクエストテンプレート**: Issue番号、説明、スクリーンショット項目を含む
 - **イシューテンプレート**: バグレポート用のテンプレート
 
+### TestFlight 配信
+
+[asc](https://asccli.sh/)（App Store Connect CLI）で TestFlight まで配信します。fastlane は使いません。
+
+```bash
+brew install asc   # または GitHub Release のバイナリを ~/.local/bin に配置
+asc auth login --name <name> --key-id <KEY_ID> --issuer-id <ISSUER_ID> --private-key <path/to/AuthKey.p8>
+scripts/testflight.sh <APP_ID>
+```
+
+`asc auth login` は Apple Developer チーム単位で一度行えばよく、このテンプレートから作った他のアプリでも同じ認証を使い回せます。
+`scripts/testflight.sh` はリポジトリ直下の `.xcodeproj` からプロジェクト名・スキーム名を自動検出するので、アプリごとの編集は不要です。
+
 ## 📁 ディレクトリ構造
 
 ```
@@ -45,6 +58,9 @@ ios-project-template/
 │   ├── workflows/           # GitHub Actions ワークフロー
 │   ├── PULL_REQUEST_TEMPLATE/
 │   └── ISSUE_TEMPLATE/
+├── scripts/
+│   ├── testflight.sh        # asc によるアーカイブ〜TestFlight アップロード
+│   └── ExportOptions.plist  # xcodebuild -exportArchive 用オプション
 ├── .swiftlint.yml          # SwiftLint 設定
 ├── .swift-format           # Swift-format 設定
 ├── .gitignore              # Git 除外設定
